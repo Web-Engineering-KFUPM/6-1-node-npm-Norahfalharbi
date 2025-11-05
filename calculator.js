@@ -111,7 +111,7 @@ TODO 4.4: Divide Function
 Hints:
 - Use Array.reduce() for cleaner code
 - For subtract and divide, skip the first element in the reduce
-
+b 
 Example for add:
   export function add(numbers) {
     return numbers.reduce((sum, num) => sum + num, 0);
@@ -174,3 +174,36 @@ After completing all TODOs, test your calculator:
   Expected output: Invalid operation. Use: add, subtract, multiply, or divide
 
 */
+import { add, subtract, multiply, divide } from "./utils/operations.js";
+import { parseNumbers, isValidOperation } from "./utils/parser.js";
+import _ from "lodash";
+
+const operation = process.argv[2];
+const numbers = process.argv.slice(3);
+  if (!isValidOperation(operation)) {
+    console.log("Invalid operation. Use: add, subtract, multiply, or divide");
+     process.exit(1); 
+  }
+
+  const nums = parseNumbers(numbers);
+  let result;
+
+  switch (operation) {
+    case "add":
+      result = add(nums);
+      break;
+    case "subtract":
+      result = subtract(nums);
+      break;
+    case "multiply":
+      result = multiply(nums);
+      break;
+    case "divide":
+      result = divide(nums);
+      break;
+    default:
+      console.log("Invalid operation");
+      process.exit(1);
+  }
+
+  console.log(`Result: ${result}`);
